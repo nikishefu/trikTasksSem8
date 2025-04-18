@@ -52,22 +52,17 @@
 - Проверить, что включен режим OPT в настройках автопилота в Pioneer Station
 
 ### Pioneer Station для Arch Linux
-После установки Pioneer Station на Arch Linux согласно [инструкции](https://docs.geoscan.ru/pioneer/instructions/applications/pioneer_station/pioneer_station_install.html#linux)
-квадрокоптер не подключается из программы, хотя устройство отображается в списке `lsusb`. Чтобы решить эту проблему, необходимо предоставить
-пользователю права чтения и записи так же, как это делается для Arduino. Для этого нужно [добавить правило udev](https://wiki.archlinux.org/title/Arduino#Accessing_serial)
-путем создания файла:
-
-`/etc/udev/rules.d/01-ttyusb.rules`
-```
-SUBSYSTEMS=="usb-serial", TAG+="uaccess"
-```
-и после этого [перезагрузить правила udev](https://wiki.archlinux.org/title/Udev#Loading_new_rules):
+В качестве альтернативного способа установки Pioneer Station на Arch Linux я создал пакет в репозитории [AUR](https://wiki.archlinux.org/title/Arch_User_Repository).
+После установки пакета командой
 ```bash
-udevadm control --reload
+yay -S pioneer-station
 ```
-
-> [!WARNING]
-> Данный способ позволяет *любому* пользователю, который вошёл в систему, получить доступ ко *всем* USB-serial устройствам.
+нужно добавить пользователя в группу `uucp`
+```bash
+sudo usermod -aG uucp $USER
+```
+> [!NOTE]
+> Я не имею отношения к разработке Pioneer Station, разработкой занимается [Геоскан](https://www.geoscan.ru/ru).
 
 ## Полезные ссылки
 - [Программирование ТРИК на Python и JavaScript](https://help.trikset.com/trik/programming-code)
