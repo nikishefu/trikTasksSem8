@@ -114,6 +114,20 @@ var rotate = function(v, alpha) {
     setPowerAll(0);
 }
 
+var rotateGyro = function(v, alpha) {
+    if (alpha < 0) {
+        v *= -1;
+        alpha *= -1;
+    }
+    var initAngle = angle;
+    MR.setPower(v);
+    ML.setPower(-v);
+    while (Math.abs(angle - initAngle) < alpha) {
+        script.wait(10);
+    }
+    setPowerAll(0);
+}
+
 var gyroSetup = function() {
     brick.gyroscope().setCalibrationValues([107, -30, 37, 208, 89, 4083])
 }
